@@ -284,7 +284,7 @@ exec {"init_main_repo":
   environment => ['PYTHONPATH=/home/jenkins-slave/reprepro-updater/src:$PYTHONPATH'],
   user        => 'jenkins-slave',
   group       => 'jenkins-slave',
-  unless      => '/home/jenkins-slave/reprepro-updater/scripts/setup_repo.py ubuntu_testing -q',
+  unless      => '/home/jenkins-slave/reprepro-updater/scripts/setup_repo.py ubuntu_main -q',
   logoutput   => on_failure,
   require     => [
                   Vcsrepo ["/home/jenkins-slave/reprepro-updater"],
@@ -298,7 +298,7 @@ exec {"init_restricted_repo":
   environment => ['PYTHONPATH=/home/jenkins-slave/reprepro-updater/src:$PYTHONPATH'],
   user        => 'jenkins-slave',
   group       => 'jenkins-slave',
-  unless      => '/home/jenkins-slave/reprepro-updater/scripts/setup_repo.py ubuntu_testing -q',
+  unless      => '/home/jenkins-slave/reprepro-updater/scripts/setup_repo.py ubuntu_restricted -q',
   logoutput   => on_failure,
   require     => [
                   Vcsrepo ["/home/jenkins-slave/reprepro-updater"],
