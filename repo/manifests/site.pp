@@ -292,6 +292,22 @@ exec {"init_main_repo":
                  ]
 }
 
+exec {"init_restricted_repo":
+  path        => '/bin:/usr/bin',
+  command     => '/home/jenkins-slave/reprepro-updater/scripts/setup_repo.py ubuntu_restricted -c',
+  environment => ['PYTHONPATH=/home/jenkins-slave/reprepro-updater/src:$PYTHONPATH'],
+  user        => 'jenkins-slave',
+  group       => 'jenkins-slave',
+  unless      => '/home/jenkins-slave/reprepro-updater/scripts/setup_repo.py ubuntu_testing -q',
+  logoutput   => on_failure,
+  require     => [
+                  Vcsrepo ["/home/jenkins-slave/reprepro-updater"],
+                  File['/home/jenkins-slave/.buildfarm/reprepro-updater.ini'],
+                 ]
+}
+
+
+
 # script to clean up docker images from oldest
 file { '/home/jenkins-slave/cleanup_docker_images.py':
   mode => '0774',
